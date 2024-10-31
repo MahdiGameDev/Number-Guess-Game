@@ -67,12 +67,15 @@ void main()
     int j;
     int k = 0;
     int l = 0;
+    char limite_number_scan[20];
+    int limite_number;
     char scaned_characters[20];
     int scaned_number;
     bool validChoise;
     bool validInput;
     char game_mode_scan[20];
     int game_mode;
+    char tries_number_scan[20];
     int tries_number;
     int game = 1;
     int total_game_played = 0;
@@ -124,18 +127,21 @@ void main()
                     printCentered("Easy Mode");
                     setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, 0);
                     tries_number = 10;
+                    limite_number = 100;
                     break;
                 case 2:
                     setColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY, 0);
                     printCentered("Normal Mode");
                     setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, 0);
                     tries_number = 7;
+                    limite_number = 100;
                     break;
                 case 3:
                     setColor(FOREGROUND_RED | FOREGROUND_INTENSITY, 0);
                     printCentered("Hard Mode");
                     setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, 0);
                     tries_number = 5;
+                    limite_number = 100;
                     break;
                 case 4:
                     setColor(FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY, 0);
@@ -143,16 +149,47 @@ void main()
                     setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, 0);
                     while (k == 0)
                     {
-                        printf("Choose number of tries :\t");
-                        scanf("%d", &tries_number);
-                        if (tries_number > 0)
+                        while (validInput == false)
                         {
-                            k++;
+                            printf("\nChoose limit number :\t");
+                            scanf("%s", &limite_number_scan);
+                            if (isInteger(limite_number_scan))
+                            {
+                                limite_number = atoi(limite_number_scan);
+                                if (limite_number > 0)
+                                {
+                                    validInput = true;
+                                }
+                                else
+                                {
+                                    printf("\nInvalid input! Please Try again.\n");
+                                }
+                            } else {
+                                printf("\nInvalid input! Please Try again.\n");
+                            }
                         }
-                        else
+                        validInput = false;
+                        while (validInput == false)
                         {
-                            printf("\nInvalid input! Please Try again.\n");
+                            printf("\nChoose number of tries :\t");
+                            scanf("%s", &tries_number_scan);
+                            if (isInteger(tries_number_scan))
+                            {
+                                tries_number = atoi(tries_number_scan);
+                                if (tries_number > 0)
+                                {
+                                    validInput = true;
+                                    k++;
+                                }
+                                else
+                                {
+                                    printf("\nInvalid input! Please Try again.\n");
+                                }
+                            } else {
+                                printf("\nInvalid input! Please Try again.\n");
+                            }
                         }
+                        validInput = false;
                     }
                     break;
                 case 5:
@@ -202,8 +239,8 @@ void main()
         }
         total_game_played++;
         srand(time(0));
-        int the_mysterious_number = rand() % 100;
-        printf("\nCan you guess my number between 0 and 100 :), you have %d tries.\n", tries_number);
+        int the_mysterious_number = rand() % limite_number;
+        printf("\nCan you guess my number between 0 and %d :), you have %d tries.\n", limite_number, tries_number);
         for(j = 1; j <= tries_number; j++)
         {
             while (validInput == false)
@@ -266,6 +303,7 @@ void main()
                 scaned_number = 0;
                 game++;
                 validInput = true;
+                number_found = false;
             }
             else if (replay == 'n')
             {
