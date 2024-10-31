@@ -253,8 +253,7 @@ void main()
         }
         save(total_game_played, total_game_win, total_game_lose);
         printf("\nThank you for playing :)");
-        printf("\nGame Idea By : Alaa");
-        printf("\nGame Code By : Mahdi\n");
+        printf("\nGame By : M4HD1\n");
         printf("\nPlay Again ? [type 'y' for yes, 'n' for no]\t");
         while (validInput == false)
         {
